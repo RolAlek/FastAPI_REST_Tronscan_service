@@ -12,6 +12,19 @@ class APISettings(BaseModel):
     debug: bool
 
 
+class DatabaseSettings(BaseModel):
+    driver: str
+    host: str
+    port: int
+    user: str
+    password: str
+    name: str
+
+    @property
+    def url(self) -> str:
+        return f"{self.driver}://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}"
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         extra="allow",
@@ -21,6 +34,7 @@ class Settings(BaseSettings):
     )
 
     api: APISettings
+    database: DatabaseSettings
 
 
 settings = Settings()
