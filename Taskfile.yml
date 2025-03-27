@@ -1,0 +1,35 @@
+version: 3
+
+vars:
+  RUNNER:
+    sh: 'echo {{ .RUNNER | default "" }}'
+  SOURCES: src main.py
+  SOURCES_ROOT: src
+
+tasks:
+  lint:
+    desc: Lints the code using ruff.
+    cmd: "{{.RUNNER}} ruff check --fix --exclude src/migrations {{.SOURCES}}"
+  
+  format:
+    desc: Formats the code using ruff and isort.
+    aliases: ["fmt"]
+    cmds: 
+      - "{{.RUNNER}} ruff format {{.SOURCES}}"
+      - "{{.RUNNER}} isort {{.SOURCES}}"
+  
+  typecheck:
+    desc: Checks the code for type errors using mypy.
+    cmd: "{{.RUNNER}} mypy {{.SOURCES}}"
+  
+  clean:
+    desc: Cleans up the build artifacts.
+    cmd: "{{.RUNNER}} pyclean ."
+  
+  all:
+    desc: Runs all the linters, formatters, and type checkers.
+    cmds:
+      - task: lint
+      - task: format
+      - task: clean
+    
