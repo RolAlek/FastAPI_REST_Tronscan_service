@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
 from dataclasses import asdict, dataclass
-from typing import Generic, Sequence, Type, TypeVar
+from typing import Generic, Sequence, TypeVar
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.domain.base import AbstractDTO
-from src.domain.models.base import Base
+from domain.models.base import Base
+from domain.base import AbstractDTO
 
 MT = TypeVar("MT", bound=Base)
 CD = TypeVar("CD", bound=AbstractDTO)
@@ -25,7 +25,7 @@ class AbstractRepository(ABC):
 @dataclass
 class BaseSQLAlchemyRepository(Generic[MT, CD], AbstractRepository):
     session: AsyncSession
-    model: Type[MT]
+    model = None
 
     async def add(self, data: CD) -> MT:
         self.session.add(obj := self.model(**asdict(data)))
