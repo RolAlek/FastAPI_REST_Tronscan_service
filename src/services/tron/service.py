@@ -26,6 +26,6 @@ class _TronService:
         return CreateWalletDTO(
             address=address,
             bandwidth=resources.get("freeNetLimit"),
-            energy=resources.get("EnergyLimit"),
+            energy=resources.get("TotalEnergyLimit"),
             trx_balance=trx_balance,
         )

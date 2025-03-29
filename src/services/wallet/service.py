@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from fastapi_pagination.default import Params
 from result import Err
 
 from repositories.modules.wallet.repository import WalletRepository
@@ -11,12 +12,13 @@ class WalletService:
     service: _TronService
     repository: WalletRepository
 
-    async def get_wallet_info(self, address: str):
+    async def get_wallet_info_and_create_request(self, address: str):
         response = await self.service.get_account_info(address)
 
         if isinstance(response, Err):
             return response
 
-        instance = await self.repository.add(response)
+        return await self.repository.add(response)
 
-        return instance
+    async def get_request_info(self, params: Params):
+        return await self.repository.get_requests(params)
