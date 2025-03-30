@@ -6,7 +6,8 @@ from aioinject import Container, Scoped, Singleton
 from pydantic_settings import BaseSettings
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from application.core.config import APISettings, DatabaseSettings, TronAPISettings
+from application.core.config import (APISettings, DatabaseSettings,
+                                     TronAPISettings)
 from application.di.modules.wallet import PROVIDERS as WALLET_PROVIDERS
 from repositories.dependencies import get_session
 

@@ -10,7 +10,7 @@ from repositories.modules.wallet.dto import CreateWalletDTO
 
 
 @dataclass
-class WalletRepository(BaseSQLAlchemyRepository[Wallet, CreateWalletDTO]):
+class _WalletRepository(BaseSQLAlchemyRepository[Wallet, CreateWalletDTO]):
     model = Wallet
 
     async def get_requests(self, params: Params):

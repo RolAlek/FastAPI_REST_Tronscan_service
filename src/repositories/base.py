@@ -5,8 +5,8 @@ from typing import Generic, Sequence, TypeVar
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from domain.models.base import Base
 from domain.base import AbstractDTO
+from domain.models.base import Base
 
 MT = TypeVar("MT", bound=Base)
 CD = TypeVar("CD", bound=AbstractDTO)

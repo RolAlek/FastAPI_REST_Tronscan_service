@@ -2,10 +2,13 @@ from dataclasses import dataclass
 
 from result import Err
 from tronpy import AsyncTron
-from tronpy.exceptions import AddressNotFound
+from tronpy.exceptions import AddressNotFound, BadAddress
 
 from repositories.modules.wallet.dto import CreateWalletDTO
-from services.tron.exceptions import WalletNotFoundServiceException
+from services.tron.exceptions import (
+    WalletAddressFormatInvalidException,
+    WalletNotFoundServiceException,
+)
 
 
 @dataclass
@@ -17,11 +20,9 @@ class _TronService:
             trx_balance = await self.client.get_account_balance(address)
             resources = await self.client.get_account_resource(address)
         except AddressNotFound:
-            return Err(
-                WalletNotFoundServiceException(
-                    f"Wallet with `{address}` not found.",
-                )
-            )
+            return Err(WalletNotFoundServiceException())
+        except BadAddress:
+            return Err(WalletAddressFormatInvalidException())
 
         return CreateWalletDTO(
             address=address,

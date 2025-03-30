@@ -1,4 +1,4 @@
-from contextlib import aclosing
+from contextlib import aclosing, asynccontextmanager
 from typing import AsyncIterator
 
 from aioinject.ext.fastapi import AioInjectMiddleware
@@ -8,8 +8,9 @@ from application.api.handlers import main_router
 from application.di.container import init_container
 
 
+@asynccontextmanager
 async def _lifespan(
-        app: FastAPI,    # noqa: ARG001 - required by lifespan protocol 
+    app: FastAPI,  # noqa: ARG001 - required by lifespan protocol
 ) -> AsyncIterator[None]:
     async with aclosing(init_container()):
         yield
