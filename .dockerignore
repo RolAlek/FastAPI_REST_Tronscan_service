@@ -1,0 +1,13 @@
+.pytest*
+.ruff_cache
+.venv/
+.env*
+docker*
+.vscode/
+.git*
+pytest.ini
+README.md
+Taskfile.yml
+/tests
+Dockerfile
+.dockerignore

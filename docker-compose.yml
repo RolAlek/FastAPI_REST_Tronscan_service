@@ -18,6 +18,17 @@ services:
       interval: 2s
       timeout: 2s
       retries: 5
+  
+  backend:
+    container_name: backend
+    build: ./
+    env_file:
+      - ".env"
+    ports:
+      - 8000:8000
+    depends_on:
+      database:
+        condition: service_healthy
 
 volumes:
   pg_data:
