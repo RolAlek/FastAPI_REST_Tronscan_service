@@ -5,10 +5,8 @@ from tronpy import AsyncTron
 from tronpy.exceptions import AddressNotFound, BadAddress
 
 from repositories.modules.wallet.dto import CreateWalletDTO
-from services.tron.exceptions import (
-    WalletAddressFormatInvalidException,
-    WalletNotFoundServiceException,
-)
+from services.tron.exceptions import (WalletAddressFormatInvalidException,
+                                      WalletNotFoundServiceException)
 
 
 @dataclass
